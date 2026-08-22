@@ -5,25 +5,24 @@ import com.mindata.hotelsearch.domain.model.SearchCountResult;
 import com.mindata.hotelsearch.domain.model.SearchCriteria;
 import com.mindata.hotelsearch.infraestructure.adapter.in.dto.SearchCountResponseDto;
 import com.mindata.hotelsearch.infraestructure.adapter.in.dto.SearchRequestDto;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest
 public class SearchWebMapperTest {
-    private SearchWebMapper mapper;
 
-    @BeforeEach
-    void setUp() {
-        mapper = new SearchWebMapper();
-    }
+    @Autowired
+    private SearchWebMapper mapper;
 
     @Test
     void shouldMapRequestToCriteria() {
-        SearchRequestDto request = new SearchRequestDto("1234aBc", "29/12/2023", "31/12/2023", List.of(30, 29, 1, 3));
+        SearchRequestDto request = new SearchRequestDto("1234aBc", LocalDate.parse("2023-12-29"), LocalDate.parse("2023-12-31"), List.of(30, 29, 1, 3));
         SearchCriteria criteria = mapper.toCriteria(request);
 
         assertAll(
@@ -45,16 +44,11 @@ public class SearchWebMapperTest {
         assertAll(
                 () -> assertEquals("search-1", response.searchId()),
                 () -> assertEquals("1234aBc", response.search().hotelId()),
-                () -> assertEquals("29/12/2023", response.search().checkIn()),
-                () -> assertEquals("31/12/2023", response.search().checkOut()),
+                () -> assertEquals(LocalDate.parse("2023-12-29"), response.search().checkIn()),
+                () -> assertEquals(LocalDate.parse("2023-12-31"), response.search().checkOut()),
                 () -> assertEquals(List.of(30, 29, 1, 3), response.search().ages()),
                 () -> assertEquals(5L, response.count())
         );
     }
 
-    @Test
-    void shouldRejectInvalidDateFormat() {
-        SearchRequestDto request = new SearchRequestDto("1234aBc", "2023-12-29", "31/12/2023", List.of(30));
-        assertThrows(IllegalArgumentException.class, () -> mapper.toCriteria(request));
-    }
 }

@@ -1,11 +1,13 @@
 package com.mindata.hotelsearch.infraestructure.adapter.in.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Schema(description = "Hotel search request")
@@ -14,13 +16,15 @@ public record SearchRequestDto(
         @Schema(example = "1234aBc")
         String hotelId,
 
-        @NotBlank(message = "checkIn must not be blank")
+        @NotNull(message = "checkIn must not be blank")
+        @JsonFormat(pattern = "dd/MM/yyyy")
         @Schema(example = "29/12/2023")
-        String checkIn,
+        LocalDate checkIn,
 
-        @NotBlank(message = "checkOut must not be blank")
+        @NotNull(message = "checkOut must not be blank")
+        @JsonFormat(pattern = "dd/MM/yyyy")
         @Schema(example = "31/12/2023")
-        String checkOut,
+        LocalDate checkOut,
 
         @NotNull(message = "ages must not be null")
         @NotEmpty(message = "ages must not be empty")
