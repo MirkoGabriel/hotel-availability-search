@@ -7,7 +7,7 @@ import com.mindata.hotelsearch.domain.model.SearchCriteria;
 import com.mindata.hotelsearch.infraestructure.adapter.in.dto.SearchCountResponseDto;
 import com.mindata.hotelsearch.infraestructure.adapter.in.dto.SearchIdResponseDto;
 import com.mindata.hotelsearch.infraestructure.adapter.in.dto.SearchRequestDto;
-import com.mindata.hotelsearch.infraestructure.adapter.in.mapper.SearchWebMapper;
+import com.mindata.hotelsearch.infraestructure.adapter.in.mapper.SearchHotelMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -27,14 +27,14 @@ import org.springframework.web.bind.annotation.*;
 public class SearchController {
     private final CreateSearchService createSearchService;
     private final GetSearchCountService getSearchCountService;
-    private final SearchWebMapper searchWebMapper;
+    private final SearchHotelMapper searchHotelMapper;
 
     public SearchController(CreateSearchService createSearchService,
                             GetSearchCountService getSearchCountService,
-                            SearchWebMapper searchWebMapper) {
+                            SearchHotelMapper searchHotelMapper) {
         this.createSearchService = createSearchService;
         this.getSearchCountService = getSearchCountService;
-        this.searchWebMapper = searchWebMapper;
+        this.searchHotelMapper = searchHotelMapper;
     }
 
     @PostMapping("/search")
@@ -44,7 +44,7 @@ public class SearchController {
             @ApiResponse(responseCode = "400", description = "Invalid request payload")
     })
     public ResponseEntity<SearchIdResponseDto> createSearch(@Valid @RequestBody SearchRequestDto request) {
-        SearchCriteria criteria = searchWebMapper.toCriteria(request);
+        SearchCriteria criteria = searchHotelMapper.toCriteria(request);
         String searchId = createSearchService.execute(criteria);
         return ResponseEntity.ok(new SearchIdResponseDto(searchId));
     }
@@ -59,6 +59,6 @@ public class SearchController {
     public ResponseEntity<SearchCountResponseDto> getSearchCount(
             @RequestParam("searchId") @NotBlank(message = "searchId must not be blank") String searchId) {
         SearchCountResult result = getSearchCountService.execute(searchId);
-        return ResponseEntity.ok(searchWebMapper.toCountResponse(result));
+        return ResponseEntity.ok(searchHotelMapper.toCountResponse(result));
     }
 }

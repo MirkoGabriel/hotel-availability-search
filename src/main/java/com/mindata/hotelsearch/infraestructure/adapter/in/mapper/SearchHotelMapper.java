@@ -9,7 +9,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
-public interface SearchWebMapper {
+public interface SearchHotelMapper {
     SearchCriteria toCriteria(SearchRequestDto request);
 
     @Mapping(target = "searchId", source = "search.searchId")

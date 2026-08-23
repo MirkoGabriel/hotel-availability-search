@@ -6,19 +6,17 @@ import com.mindata.hotelsearch.domain.model.SearchCriteria;
 import com.mindata.hotelsearch.infraestructure.adapter.in.dto.SearchCountResponseDto;
 import com.mindata.hotelsearch.infraestructure.adapter.in.dto.SearchRequestDto;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mapstruct.factory.Mappers;
 
 import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
-public class SearchWebMapperTest {
+public class SearchHotelMapperTest {
 
-    @Autowired
-    private SearchWebMapper mapper;
+    private final SearchHotelMapper mapper =
+            Mappers.getMapper(SearchHotelMapper.class);
 
     @Test
     void shouldMapRequestToCriteria() {
