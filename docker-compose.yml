@@ -1,4 +1,19 @@
 services:
+  oracle:
+    image: gvenzl/oracle-xe:21-slim
+    container_name: hotel-oracle
+    environment:
+      ORACLE_PASSWORD: oracle
+      APP_USER: hotel_user
+      APP_USER_PASSWORD: hotel_pass
+    ports:
+      - "1521:1521"
+    healthcheck:
+      test: [ "CMD", "healthcheck.sh" ]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 120s
   kafka:
     image: apache/kafka:3.9.0
     container_name: hotel-kafka

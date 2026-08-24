@@ -19,17 +19,17 @@ import static org.mockito.Mockito.verify;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
-public class SearchKafkaProducerTest {
+public class SearchKafkaProducerAdapterTest {
     @Mock
     private KafkaTemplate<String, SearchEventMessage> kafkaTemplate;
 
-    private SearchKafkaProducer producer;
+    private SearchKafkaProducerAdapter producer;
 
     @BeforeEach
     void setUp() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
-        producer = new SearchKafkaProducer(kafkaTemplate, "hotel_availability_searches");
+        producer = new SearchKafkaProducerAdapter(kafkaTemplate, "hotel_availability_searches");
     }
 
     @Test

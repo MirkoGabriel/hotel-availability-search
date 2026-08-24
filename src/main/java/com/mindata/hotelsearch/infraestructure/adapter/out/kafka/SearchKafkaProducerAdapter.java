@@ -9,14 +9,14 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SearchKafkaProducer implements PublishSearchEventPort {
-    private static final Logger LOGGER = LoggerFactory.getLogger(SearchKafkaProducer.class);
+public class SearchKafkaProducerAdapter implements PublishSearchEventPort {
+    private static final Logger LOGGER = LoggerFactory.getLogger(SearchKafkaProducerAdapter.class);
 
     private final KafkaTemplate<String, SearchEventMessage> kafkaTemplate;
     private final String topicName;
 
-    public SearchKafkaProducer(KafkaTemplate<String, SearchEventMessage> kafkaTemplate,
-                               @Value("${app.kafka.topic.hotel-availability-searches}") String topicName) {
+    public SearchKafkaProducerAdapter(KafkaTemplate<String, SearchEventMessage> kafkaTemplate,
+                                      @Value("${app.kafka.topic.hotel-availability-searches}") String topicName) {
         this.kafkaTemplate = kafkaTemplate;
         this.topicName = topicName;
     }
