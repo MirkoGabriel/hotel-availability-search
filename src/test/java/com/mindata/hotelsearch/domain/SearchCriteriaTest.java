@@ -69,4 +69,56 @@ public class SearchCriteriaTest {
                 29), LocalDate.of(2023, 12, 31), List.of(0));
         Assertions.assertTrue(criteria.ages().contains(0));
     }
+
+    @Test
+    void shouldRejectNullHotelId() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new SearchCriteria(
+                        null,
+                        LocalDate.of(2023, 12, 29),
+                        LocalDate.of(2023, 12, 31),
+                        List.of(30)
+                )
+        );
+    }
+
+    @Test
+    void shouldRejectNullCheckIn() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new SearchCriteria(
+                        "hotel",
+                        null,
+                        LocalDate.of(2023, 12, 31),
+                        List.of(30)
+                )
+        );
+    }
+
+    @Test
+    void shouldRejectNullCheckOut() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new SearchCriteria(
+                        "hotel",
+                        LocalDate.of(2023, 12, 29),
+                        null,
+                        List.of(30)
+                )
+        );
+    }
+
+    @Test
+    void shouldRejectNullAges() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new SearchCriteria(
+                        "hotel",
+                        LocalDate.of(2023, 12, 29),
+                        LocalDate.of(2023, 12, 31),
+                        null
+                )
+        );
+    }
 }

@@ -49,4 +49,18 @@ public class SearchHotelMapperTest {
         );
     }
 
+    @Test
+    void shouldReturnNullWhenRequestIsNull() {
+        assertNull(mapper.toCriteria(null));
+    }
+
+    @Test
+    void shouldReturnNullWhenCountResultIsNull() {
+        assertNull(mapper.toCountResponse(null));
+    }
+
+    @Test
+    void shouldReturnNullWhenCriteriaIsNull() {
+        assertNull(mapper.toPayload(null));
+    }
 }

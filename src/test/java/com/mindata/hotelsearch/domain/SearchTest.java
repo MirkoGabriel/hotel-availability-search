@@ -26,4 +26,27 @@ public class SearchTest {
         assertThrows(IllegalArgumentException.class,
                 () -> new Search(" ", criteria));
     }
+
+    @Test
+    void shouldRejectNullSearchId() {
+        SearchCriteria criteria = new SearchCriteria(
+                "hotel",
+                LocalDate.of(2023, 12, 29),
+                LocalDate.of(2023, 12, 31),
+                List.of(30)
+        );
+
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new Search(null, criteria)
+        );
+    }
+
+    @Test
+    void shouldRejectNullCriteria() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new Search("search-1", null)
+        );
+    }
 }

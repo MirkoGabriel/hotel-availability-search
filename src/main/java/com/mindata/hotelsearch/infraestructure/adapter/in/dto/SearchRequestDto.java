@@ -1,6 +1,7 @@
 package com.mindata.hotelsearch.infraestructure.adapter.in.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.mindata.hotelsearch.infraestructure.adapter.in.validation.ValidDateRange;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -10,6 +11,7 @@ import jakarta.validation.constraints.PositiveOrZero;
 import java.time.LocalDate;
 import java.util.List;
 
+@ValidDateRange
 @Schema(description = "Hotel search request")
 public record SearchRequestDto(
         @NotBlank(message = "hotelId must not be blank")
