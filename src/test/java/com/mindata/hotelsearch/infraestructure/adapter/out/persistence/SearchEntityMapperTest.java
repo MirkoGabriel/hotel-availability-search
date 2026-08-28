@@ -15,7 +15,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class SearchEntityMapperTest {
+class SearchEntityMapperTest {
     private SearchEntityMapper mapper;
 
     @BeforeEach

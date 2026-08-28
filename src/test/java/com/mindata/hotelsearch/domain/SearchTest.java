@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertThrows;
 
-public class SearchTest {
+class SearchTest {
     @Test
     void shouldCreateValidSearch() {
         SearchCriteria criteria = new SearchCriteria("hotel", LocalDate.of(2023, 12, 29),

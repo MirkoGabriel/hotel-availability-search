@@ -11,7 +11,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-public class SearchCriteriaTest {
+class SearchCriteriaTest {
     @Test
     void shouldCreateValidCriteria() {
         SearchCriteria criteria = new SearchCriteria("1234aBc", LocalDate.of(2023, 12,

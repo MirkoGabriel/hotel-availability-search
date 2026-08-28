@@ -21,7 +21,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class CreateSearchServiceTest {
+class CreateSearchServiceTest {
     @Mock
     private SearchIdGeneratorPort searchIdGeneratorPort;
 

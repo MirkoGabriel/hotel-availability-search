@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class GlobalExceptionHandlerExtendedTest {
+class GlobalExceptionHandlerExtendedTest {
     private final GlobalExceptionHandler handler = new GlobalExceptionHandler();
 
     @Test

@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class SearchEntityTest {
+class SearchEntityTest {
     @Test
     void shouldExposeEntityValues() {
         SearchEntity entity = new SearchEntity(

@@ -13,7 +13,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class SearchHotelMapperTest {
+class SearchHotelMapperTest {
 
     private final SearchHotelMapper mapper =
             Mappers.getMapper(SearchHotelMapper.class);

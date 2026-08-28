@@ -12,7 +12,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class SearchEventMessageTest {
+class SearchEventMessageTest {
     @Test
     void shouldMapToAndFromDomain() {
         ObjectMapper objectMapper = new ObjectMapper();
