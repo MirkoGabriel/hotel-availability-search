@@ -1,7 +1,7 @@
 package com.mindata.hotelsearch.application;
 
-import com.mindata.hotelsearch.application.port.out.PublishSearchEventPort;
-import com.mindata.hotelsearch.application.port.out.SearchIdGeneratorPort;
+import com.mindata.hotelsearch.domain.port.PublishSearchEventPort;
+import com.mindata.hotelsearch.domain.port.SearchIdGeneratorPort;
 import com.mindata.hotelsearch.application.services.CreateSearchService;
 import com.mindata.hotelsearch.domain.model.Search;
 import com.mindata.hotelsearch.domain.model.SearchCriteria;

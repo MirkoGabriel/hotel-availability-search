@@ -1,6 +1,6 @@
 package com.mindata.hotelsearch.infraestructure.adapter.out.kafka;
 
-import com.mindata.hotelsearch.application.port.out.PublishSearchEventPort;
+import com.mindata.hotelsearch.domain.port.PublishSearchEventPort;
 import com.mindata.hotelsearch.domain.model.Search;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

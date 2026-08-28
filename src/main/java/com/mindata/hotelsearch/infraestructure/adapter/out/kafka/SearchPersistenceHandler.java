@@ -1,6 +1,6 @@
 package com.mindata.hotelsearch.infraestructure.adapter.out.kafka;
 
-import com.mindata.hotelsearch.application.port.out.SaveSearchPort;
+import com.mindata.hotelsearch.domain.port.SaveSearchPort;
 import com.mindata.hotelsearch.domain.model.Search;
 import org.springframework.stereotype.Component;
 import org.slf4j.Logger;

@@ -1,7 +1,7 @@
 package com.mindata.hotelsearch.infraestructure.adapter.out.persistene;
 
-import com.mindata.hotelsearch.application.port.out.SaveSearchPort;
-import com.mindata.hotelsearch.application.port.out.SearchQueryPort;
+import com.mindata.hotelsearch.domain.port.SaveSearchPort;
+import com.mindata.hotelsearch.domain.port.SearchQueryPort;
 import com.mindata.hotelsearch.domain.model.Search;
 import com.mindata.hotelsearch.domain.model.SearchCriteria;
 import org.springframework.transaction.annotation.Transactional;

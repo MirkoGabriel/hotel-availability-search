@@ -1,6 +1,6 @@
 package com.mindata.hotelsearch.infraestructure.adapter.out.id;
 
-import com.mindata.hotelsearch.application.port.out.SearchIdGeneratorPort;
+import com.mindata.hotelsearch.domain.port.SearchIdGeneratorPort;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;

@@ -1,4 +1,4 @@
-package com.mindata.hotelsearch.application.port.out;
+package com.mindata.hotelsearch.domain.port;
 
 import com.mindata.hotelsearch.domain.model.Search;
 

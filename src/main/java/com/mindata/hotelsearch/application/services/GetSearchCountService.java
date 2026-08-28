@@ -1,6 +1,6 @@
 package com.mindata.hotelsearch.application.services;
 
-import com.mindata.hotelsearch.application.port.out.SearchQueryPort;
+import com.mindata.hotelsearch.domain.port.SearchQueryPort;
 import com.mindata.hotelsearch.domain.exception.SearchNotFoundException;
 import com.mindata.hotelsearch.domain.model.Search;
 import com.mindata.hotelsearch.domain.model.SearchCountResult;
