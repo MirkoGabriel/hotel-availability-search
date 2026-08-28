@@ -56,5 +56,6 @@ class GlobalExceptionHandlerExtendedTest {
 
     @SuppressWarnings("unused")
     private void sampleMethod(String value) {
+        throw new UnsupportedOperationException("Test helper method for MethodParameter construction");
     }
 }

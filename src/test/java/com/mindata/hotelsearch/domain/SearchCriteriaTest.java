@@ -46,21 +46,27 @@ class SearchCriteriaTest {
     }
 
     @Test
-    void shouldValidateBusinessRules() {
-        assertAll(
-                () -> assertThrows(IllegalArgumentException.class,
-                        () -> new SearchCriteria("", LocalDate.of(2023, 12,
-                                29), LocalDate.of(2023, 12, 31), List.of(30))),
-                () -> assertThrows(IllegalArgumentException.class,
-                        () -> new SearchCriteria("hotel", LocalDate.of(2023, 12,
-                                31), LocalDate.of(2023, 12, 29), List.of(30))),
-                () -> assertThrows(IllegalArgumentException.class,
-                        () -> new SearchCriteria("hotel", LocalDate.of(2023, 12,
-                                29), LocalDate.of(2023, 12, 31), List.of(-1))),
-                () -> assertThrows(IllegalArgumentException.class,
-                        () -> new SearchCriteria("hotel", LocalDate.of(2023, 12,
-                                29), LocalDate.of(2023, 12, 31), List.of()))
-        );
+    void shouldRejectBlankHotelId() {
+        assertThrows(IllegalArgumentException.class,
+                () -> new SearchCriteria("", LocalDate.of(2023, 12, 29), LocalDate.of(2023, 12, 31), List.of(30)));
+    }
+
+    @Test
+    void shouldRejectCheckOutBeforeCheckIn() {
+        assertThrows(IllegalArgumentException.class,
+                () -> new SearchCriteria("hotel", LocalDate.of(2023, 12, 31), LocalDate.of(2023, 12, 29), List.of(30)));
+    }
+
+    @Test
+    void shouldRejectNegativeAge() {
+        assertThrows(IllegalArgumentException.class,
+                () -> new SearchCriteria("hotel", LocalDate.of(2023, 12, 29), LocalDate.of(2023, 12, 31), List.of(-1)));
+    }
+
+    @Test
+    void shouldRejectEmptyAges() {
+        assertThrows(IllegalArgumentException.class,
+                () -> new SearchCriteria("hotel", LocalDate.of(2023, 12, 29), LocalDate.of(2023, 12, 31), List.of()));
     }
 
     @Test
@@ -72,53 +78,37 @@ class SearchCriteriaTest {
 
     @Test
     void shouldRejectNullHotelId() {
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> new SearchCriteria(
-                        null,
-                        LocalDate.of(2023, 12, 29),
-                        LocalDate.of(2023, 12, 31),
-                        List.of(30)
-                )
-        );
+        assertThrows(IllegalArgumentException.class, () -> createCriteriaWithNullHotelId());
     }
 
     @Test
     void shouldRejectNullCheckIn() {
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> new SearchCriteria(
-                        "hotel",
-                        null,
-                        LocalDate.of(2023, 12, 31),
-                        List.of(30)
-                )
-        );
+        assertThrows(IllegalArgumentException.class, () -> createCriteriaWithNullCheckIn());
     }
 
     @Test
     void shouldRejectNullCheckOut() {
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> new SearchCriteria(
-                        "hotel",
-                        LocalDate.of(2023, 12, 29),
-                        null,
-                        List.of(30)
-                )
-        );
+        assertThrows(IllegalArgumentException.class, () -> createCriteriaWithNullCheckOut());
     }
 
     @Test
     void shouldRejectNullAges() {
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> new SearchCriteria(
-                        "hotel",
-                        LocalDate.of(2023, 12, 29),
-                        LocalDate.of(2023, 12, 31),
-                        null
-                )
-        );
+        assertThrows(IllegalArgumentException.class, () -> createCriteriaWithNullAges());
+    }
+
+    private void createCriteriaWithNullHotelId() {
+        new SearchCriteria(null, LocalDate.of(2023, 12, 29), LocalDate.of(2023, 12, 31), List.of(30));
+    }
+
+    private void createCriteriaWithNullCheckIn() {
+        new SearchCriteria("hotel", null, LocalDate.of(2023, 12, 31), List.of(30));
+    }
+
+    private void createCriteriaWithNullCheckOut() {
+        new SearchCriteria("hotel", LocalDate.of(2023, 12, 29), null, List.of(30));
+    }
+
+    private void createCriteriaWithNullAges() {
+        new SearchCriteria("hotel", LocalDate.of(2023, 12, 29), LocalDate.of(2023, 12, 31), null);
     }
 }
