@@ -13,22 +13,22 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ValidDateRangeTest {
+class ValidDateRangeTest {
     private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     @Test
     void shouldValidateDateRange() {
         SearchRequestDto valid = new SearchRequestDto(
                 "hotel",
-                LocalDate.of(2023, 12, 29),
-                LocalDate.of(2023, 12, 31),
+                LocalDate.now().plusDays(1),
+                LocalDate.now().plusDays(3),
                 List.of(30)
         );
 
         SearchRequestDto invalid = new SearchRequestDto(
                 "hotel",
-                LocalDate.of(2023, 12, 31),
-                LocalDate.of(2023, 12, 29),
+                LocalDate.now().plusDays(5),
+                LocalDate.now().plusDays(2),
                 List.of(30)
         );
 
@@ -39,7 +39,7 @@ public class ValidDateRangeTest {
     }
 
     @Test
-    void shouldRejectInvalidDateFormat() throws Exception {
+    void shouldRejectInvalidDateFormat() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
 
@@ -56,5 +56,17 @@ public class ValidDateRangeTest {
                 JsonProcessingException.class,
                 () -> objectMapper.readValue(json, SearchRequestDto.class)
         );
+    }
+
+    @Test
+    void shouldRejectPastCheckInDate() {
+        SearchRequestDto request = new SearchRequestDto(
+                "hotel",
+                LocalDate.now().minusDays(1),
+                LocalDate.now().plusDays(7),
+                List.of(30)
+        );
+
+        assertFalse(validator.validate(request).isEmpty());
     }
 }

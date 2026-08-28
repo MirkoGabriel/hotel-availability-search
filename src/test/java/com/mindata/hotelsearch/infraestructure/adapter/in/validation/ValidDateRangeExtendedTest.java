@@ -11,7 +11,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ValidDateRangeExtendedTest {
+class ValidDateRangeExtendedTest {
     private final Validator validator =
             Validation.buildDefaultValidatorFactory().getValidator();
 
@@ -20,7 +20,7 @@ public class ValidDateRangeExtendedTest {
         SearchRequestDto request = new SearchRequestDto(
                 "hotel",
                 null,
-                LocalDate.of(2023, 12, 31),
+                LocalDate.now().plusDays(3),
                 List.of(30)
         );
 
@@ -31,8 +31,8 @@ public class ValidDateRangeExtendedTest {
     void shouldAcceptSameMonthRange() {
         SearchRequestDto request = new SearchRequestDto(
                 "hotel",
-                LocalDate.of(2023, 12, 1),
-                LocalDate.of(2023, 12, 2),
+                LocalDate.now().plusDays(1),
+                LocalDate.now().plusDays(2),
                 List.of(30)
         );
 
@@ -43,8 +43,8 @@ public class ValidDateRangeExtendedTest {
     void shouldAcceptValidDates() {
         SearchRequestDto request = new SearchRequestDto(
                 "hotel",
-                LocalDate.of(2023, 2, 28),
-                LocalDate.of(2023, 3, 1),
+                LocalDate.now().plusDays(10),
+                LocalDate.now().plusDays(11),
                 List.of(30)
         );
 

@@ -7,6 +7,7 @@ import jakarta.validation.ConstraintValidatorContext;
 import jakarta.validation.Payload;
 
 import java.lang.annotation.*;
+import java.time.LocalDate;
 
 @Documented
 @Constraint(validatedBy = ValidDateRange.Validator.class)
@@ -30,10 +31,19 @@ public @interface ValidDateRange {
                 return true;
             }
 
+            LocalDate today = LocalDate.now();
+
+            if (request.checkIn().isBefore(today)) {
+                context.disableDefaultConstraintViolation();
+                context.buildConstraintViolationWithTemplate("checkIn must not be in the past")
+                        .addPropertyNode("checkIn")
+                        .addConstraintViolation();
+                return false;
+            }
+
             if (!request.checkIn().isBefore(request.checkOut())) {
                 context.disableDefaultConstraintViolation();
-                context.buildConstraintViolationWithTemplate(
-                                "checkIn must be before checkOut")
+                context.buildConstraintViolationWithTemplate("checkIn must be before checkOut")
                         .addPropertyNode("checkIn")
                         .addConstraintViolation();
 
