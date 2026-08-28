@@ -1,7 +1,7 @@
 package com.mindata.hotelsearch.infraestructure.adapter.in;
 
-import com.mindata.hotelsearch.application.services.CreateSearchService;
-import com.mindata.hotelsearch.application.services.GetSearchCountService;
+import com.mindata.hotelsearch.application.port.CreateSearchUseCase;
+import com.mindata.hotelsearch.application.port.GetSearchCountUseCase;
 import com.mindata.hotelsearch.domain.model.Search;
 import com.mindata.hotelsearch.domain.model.SearchCountResult;
 import com.mindata.hotelsearch.domain.model.SearchCriteria;
@@ -32,22 +32,22 @@ class SearchControllerTest {
     private MockMvc mockMvc;
 
     @MockitoBean
-    private CreateSearchService createSearchService;
+    private CreateSearchUseCase createSearchUseCase;
 
     @MockitoBean
-    private GetSearchCountService getSearchCountService;
+    private GetSearchCountUseCase getSearchCountUseCase;
 
     @Test
     void shouldCreateSearch() throws Exception {
-        when(createSearchService.execute(any(SearchCriteria.class))).thenReturn("search-123");
+        when(createSearchUseCase.execute(any(SearchCriteria.class))).thenReturn("search-123");
 
         mockMvc.perform(post("/search")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
                                   "hotelId": "1234aBc",
-                                  "checkIn": "29/12/2023",
-                                  "checkOut": "31/12/2023",
+                                  "checkIn": "04/09/2026",
+                                  "checkOut": "11/09/2026",
                                   "ages": [30, 29, 1, 3]
                                 }
                                 """))
@@ -75,7 +75,7 @@ class SearchControllerTest {
     void shouldReturnSearchCount() throws Exception {
         SearchCriteria criteria = new SearchCriteria("1234aBc", LocalDate.of(2023, 12, 29), LocalDate.of(2023, 12, 31), List.of(30, 29, 1, 3));
         Search search = new Search("search-123", criteria);
-        when(getSearchCountService.execute("search-123")).thenReturn(new SearchCountResult(search, 2L));
+        when(getSearchCountUseCase.execute("search-123")).thenReturn(new SearchCountResult(search, 2L));
 
         mockMvc.perform(get("/count").param("searchId", "search-123"))
                 .andExpect(status().isOk())

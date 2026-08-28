@@ -1,13 +1,13 @@
 package com.mindata.hotelsearch.application.services;
 
+import com.mindata.hotelsearch.application.port.CreateSearchUseCase;
 import com.mindata.hotelsearch.domain.port.PublishSearchEventPort;
 import com.mindata.hotelsearch.domain.port.SearchIdGeneratorPort;
 import com.mindata.hotelsearch.domain.model.Search;
 import com.mindata.hotelsearch.domain.model.SearchCriteria;
 import org.springframework.stereotype.Service;
 
-@Service
-public class CreateSearchService {
+public class CreateSearchService implements CreateSearchUseCase {
     private final SearchIdGeneratorPort searchIdGeneratorPort;
     private final PublishSearchEventPort publishSearchEventPort;
 
