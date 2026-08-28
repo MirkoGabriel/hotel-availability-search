@@ -23,6 +23,6 @@ public class SearchKafkaConsumer {
     public void consume(SearchEventMessage message) {
         Search search = message.toDomain();
         LOGGER.info("Received search event for searchId={}", search.searchId());
-        searchPersistenceHandler.persistAsync(search);
+        searchPersistenceHandler.persist(search);
     }
 }

@@ -5,7 +5,6 @@ import com.mindata.hotelsearch.domain.model.Search;
 import org.springframework.stereotype.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.annotation.Async;
 
 @Component
 public class SearchPersistenceHandler {
@@ -17,9 +16,13 @@ public class SearchPersistenceHandler {
         this.saveSearchPort = saveSearchPort;
     }
 
-    @Async("virtualThreadExecutor")
-    public void persistAsync(Search search) {
-        saveSearchPort.save(search);
-        LOGGER.info("Persisted search searchId={}", search.searchId());
+    public void persist(Search search) {
+        try {
+            saveSearchPort.save(search);
+            LOGGER.info("Persisted search searchId={}", search.searchId());
+        } catch (Exception exception) {
+            LOGGER.error("Failed to persist search searchId={}", search.searchId(), exception);
+            throw new IllegalStateException("Failed to persist search searchId=" + search.searchId(), exception);
+        }
     }
 }

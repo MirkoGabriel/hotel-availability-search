@@ -120,12 +120,11 @@ The main flow is:
 - JUnit 5
 - Mockito
 - Testcontainers
-- Awaitility
 - JaCoCo
 
 ## Running the tests
 
-For running Gradle locally, use Java 21 or Java 17.
+For running Gradle locally, use Java 21.
 
 For example:
 

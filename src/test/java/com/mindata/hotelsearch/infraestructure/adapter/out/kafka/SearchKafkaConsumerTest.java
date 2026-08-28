@@ -13,7 +13,7 @@ import java.util.List;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-public class SearchKafkaConsumerTest {
+class SearchKafkaConsumerTest {
     @Mock
     private SearchPersistenceHandler searchPersistenceHandler;
 
@@ -33,6 +33,6 @@ public class SearchKafkaConsumerTest {
 
         consumer.consume(message);
 
-        verify(searchPersistenceHandler).persistAsync(org.mockito.ArgumentMatchers.any(Search.class));
+        verify(searchPersistenceHandler).persist(org.mockito.ArgumentMatchers.any(Search.class));
     }
 }

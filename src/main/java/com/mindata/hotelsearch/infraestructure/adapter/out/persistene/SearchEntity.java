@@ -1,14 +1,13 @@
 package com.mindata.hotelsearch.infraestructure.adapter.out.persistene;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "hotel_availability_search")
+@Table(name = "hotel_availability_search", indexes = {
+        @Index(name = "idx_search_criteria", columnList = "hotel_id, check_in, check_out, ages")
+})
 public class SearchEntity {
     @Id
     @Column(name = "search_id", nullable = false, length = 36)

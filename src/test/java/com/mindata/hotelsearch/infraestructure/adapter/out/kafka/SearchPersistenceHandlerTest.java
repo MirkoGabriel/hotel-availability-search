@@ -12,10 +12,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalDate;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-public class SearchPersistenceHandlerTest {
+class SearchPersistenceHandlerTest {
     @Mock
     private SaveSearchPort saveSearchPort;
 
@@ -27,8 +29,17 @@ public class SearchPersistenceHandlerTest {
         Search search = new Search("search-1",
                 new SearchCriteria("hotel", LocalDate.of(2023, 12, 29), LocalDate.of(2023, 12, 31), List.of(30)));
 
-        handler.persistAsync(search);
+        handler.persist(search);
 
         verify(saveSearchPort).save(search);
+    }
+
+    @Test
+    void shouldPropagatePersistenceErrors() {
+        Search search = new Search("search-1",
+                new SearchCriteria("hotel", LocalDate.of(2023, 12, 29), LocalDate.of(2023, 12, 31), List.of(30)));
+        doThrow(new RuntimeException("db error")).when(saveSearchPort).save(search);
+
+        assertThrows(IllegalStateException.class, () -> handler.persist(search));
     }
 }

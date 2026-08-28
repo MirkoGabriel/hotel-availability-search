@@ -24,7 +24,18 @@ public class SearchKafkaProducerAdapter implements PublishSearchEventPort {
     @Override
     public void publish(Search search) {
         SearchEventMessage message = SearchEventMessage.from(search);
-        kafkaTemplate.send(topicName, search.searchId(), message);
-        LOGGER.info("Published search event for searchId={}", search.searchId());
+        try {
+            kafkaTemplate.send(topicName, search.searchId(), message)
+                    .whenComplete((result, exception) -> {
+                        if (exception != null) {
+                            LOGGER.error("Failed to publish search event for searchId={}", search.searchId(), exception);
+                        } else {
+                            LOGGER.info("Published search event for searchId={}", search.searchId());
+                        }
+                    });
+        } catch (Exception exception) {
+            LOGGER.error("Failed to publish search event for searchId={}", search.searchId(), exception);
+            throw new IllegalStateException("Failed to publish search event for searchId=" + search.searchId(), exception);
+        }
     }
 }
