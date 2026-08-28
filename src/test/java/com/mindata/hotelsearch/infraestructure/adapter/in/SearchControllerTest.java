@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(SearchController.class)
 @Import({SearchHotelMapperImpl.class, GlobalExceptionHandler.class})
-public class SearchControllerTest {
+class SearchControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
@@ -51,7 +51,7 @@ public class SearchControllerTest {
                                   "ages": [30, 29, 1, 3]
                                 }
                                 """))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.searchId").value("search-123"));
     }
 

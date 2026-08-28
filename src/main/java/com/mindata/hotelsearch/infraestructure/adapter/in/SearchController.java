@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,13 +41,13 @@ public class SearchController {
     @PostMapping("/search")
     @Operation(summary = "Create a hotel availability search")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Search accepted"),
+            @ApiResponse(responseCode = "201", description = "Search created"),
             @ApiResponse(responseCode = "400", description = "Invalid request payload")
     })
     public ResponseEntity<SearchIdResponseDto> createSearch(@Valid @RequestBody SearchRequestDto request) {
         SearchCriteria criteria = searchHotelMapper.toCriteria(request);
         String searchId = createSearchService.execute(criteria);
-        return ResponseEntity.ok(new SearchIdResponseDto(searchId));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new SearchIdResponseDto(searchId));
     }
 
     @GetMapping("/count")
